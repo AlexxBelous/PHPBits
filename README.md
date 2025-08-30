@@ -1,36 +1,6 @@
 # Documentation
-
-## Table of Contents
-- [Version History](#version-history)
-- [Container Commands](#container-commands)
-- [Docker Command List](#docker-command-list)
-- [BrowserSync Commands](#browsersync-commands)
-- [PhpStorm Setup](#phpstorm-setup)
-
----
-
-## Version History
-
-### Version 2.3
-- Базовая Docker-сборка: PHP-FPM, Nginx, MySQL, phpMyAdmin.
-
-### Version 2.4
-- В `docker-compose.yml` добавлен сервис **BrowserSync** (на базе Node.js).
-- Настроено проксирование через `nginx:80` и автоматическая перезагрузка браузера при изменениях файлов PHP, CSS, JS.
-- Проброшены порты:
-    - `3000` — сайт с автообновлением
-    - `3001` — панель управления BrowserSync
-
-#### Как пользоваться
-- Основной сайт: [http://localhost](http://localhost)
-- Версия с автообновлением: [http://localhost:3000](http://localhost:3000)
-- Панель управления: [http://localhost:3001](http://localhost:3001)
-
-#### О сниппете
-> ⚠️ Сниппет нужен только если страница **не содержит HTML-разметку** (например, чистый PHP-вывод или JSON).  
-> В большинстве случаев он не нужен, т.к. BrowserSync автоматически внедряет клиентский код.  
-> При необходимости актуальный вариант сниппета можно найти в [официальной документации BrowserSync](https://browsersync.io/docs#the-script-tag).
-
+### Version 1.00
+- Базовая Docker-сборка: PHP-FPM, Nginx, MySQL, phpMyAdmin, Node.js
 ----
 # Container
 | Command                               | Description                                                |
@@ -43,7 +13,14 @@
 | **Rebuild and Start Containers**      | `docker-compose up -d --build`                             |
 | **Remove Unused Resources**           | `docker system prune -a --volumes -f`                      |
 | **Stop and Clean Docker**             | `docker stop $(docker ps -aq) && docker system prune -af --volumes` |
+----
 
+# Команды для работы с фреймворком.
+
+#### make question N=1 : создаются question-1.php, data_base-1.php, answer-1.phps;
+#### make class NAME=Test : создается класс в папке classes + создается комментарий в файле index.php
+
+----
 
 
 #  Docker Command List
@@ -55,18 +32,6 @@
 | `sudo systemctl start docker`                     | Start Docker                        |
 | `sudo systemctl stop docker`                      | Stop Docker                         |
 | `sudo systemctl stop docker.socket`               | Stop the Docker socket              |
-
-
-# BrowserSync Command List
-
-| Command                               | Description                                                                 |
-|---------------------------------------|-----------------------------------------------------------------------------|
-| **Start BrowserSync**                 | `npm run browsersync` — запускает BrowserSync с настройками из `package.json` |
-| **Stop BrowserSync**                  | `docker stop browsersync` — останавливает контейнер BrowserSync             |
-| **Restart BrowserSync**               | `docker restart browsersync` — перезапускает сервис BrowserSync             |
-| **View BrowserSync Logs**             | `docker logs -f browsersync` — показывает логи работы BrowserSync           |
-| **Access Browser with LiveReload**    | Открыть http://localhost:3000                                               |
-| **Access BrowserSync Dashboard**      | Открыть http://localhost:3001                                               |
 
 
 

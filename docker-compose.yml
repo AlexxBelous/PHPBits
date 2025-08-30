@@ -4,10 +4,9 @@ services:
       context: ./docker/php
     volumes:
       - './:/var/www/html'
-      - '~/.gitconfig:/home/alex/.gitconfig'
+      - '~/.gitconfig:/home/myuser/.gitconfig'
     environment:
       - COMPOSER_ALLOW_SUPERUSER=1
-    user: 1000:1000 # Запускаем от локального пользователя alex (UID 1000, GID 1000)
     restart: unless-stopped
     depends_on:
       - mysql
@@ -62,17 +61,19 @@ services:
       - "3001:3001"
     volumes:
       - ./:/var/www/html
-    user: 1000:1000 # Запускаем от локального пользователя alex
     depends_on:
       - nginx
 
-  node-watcher:
+  generator:
     image: node:18
-    user: 1000:1000 # Запускаем от локального пользователя alex
-    working_dir: /app/node
-    command: node watcher.js
+    working_dir: /var/www/html/src/scripts
     volumes:
-      - ./:/app
-    depends_on:
-      - php
-    restart: unless-stopped
+      - ./:/var/www/html
+    entrypoint: ["node", "generate.js"]
+
+  nodeutil:
+    image: node:18
+    working_dir: /var/www/html/src/scripts
+    volumes:
+      - ./:/var/www/html
+
