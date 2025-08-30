@@ -9,7 +9,6 @@ body {
 }
 
 
-
 pre {
     background: black;
     color: yellow;
@@ -20,11 +19,61 @@ pre {
 }
 
 .question-template {
-    background: green;
-    padding: 10px;
-    width: 200px;
-    color: white;
+    background: #4CAF50;
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    line-height: 1.6;
 }
+
+.question-template p {
+    margin: 0;
+}
+
 .answer-title {
     color: #B729D9;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 15px 0 10px;
+    text-align: left;
+    border-bottom: 2px solid #B729D9;
+    display: block;
+    padding-bottom: 3px;
 }
+
+
+code {
+    display: block;
+    max-height: 0;                 /* скрыт при загрузке */
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    background: bisque;
+    color: yellow;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+/* когда открыт */
+code.open {
+    max-height: 1000px;            /* или auto через JS, см. ниже */
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.answer-title {
+    color: #B729D9;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 15px 0 10px;
+    cursor: pointer;               /* курсор показывает кликабельность */
+    user-select: none;             /* чтобы текст не выделялся случайно */
+}
+
+
+
+

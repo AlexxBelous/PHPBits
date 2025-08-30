@@ -30,7 +30,10 @@ function createFile(filePath, content = "") {
     }
 }
 
-createFile(path.join(questionsDir, `question-${n}.php`), `<?php\n// question-${n}\n`);
+createFile(
+    path.join(questionsDir, `question-${n}.php`),
+    `<?php\n// question-${n}\n?>\n<div class="question-template">\n    <p></p>\n</div>\n`
+);
 createFile(path.join(answersDir, `answer-${n}.phps`), `<?php\n// answer-${n}\n`);
 createFile(path.join(databaseDir, `data_base-${n}.php`), `<?php\n// database-${n}\n`);
 

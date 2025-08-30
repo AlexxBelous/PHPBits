@@ -17,4 +17,22 @@
 //     })()
 //     //]]></script>
 
-console.log('Simple test for console.log');
+document.addEventListener("DOMContentLoaded", () => {
+    const answerTitle = document.querySelector(".answer-title");
+    const code = document.querySelector("code");
+
+    if (answerTitle && code) {
+        answerTitle.addEventListener("click", () => {
+            if (code.classList.contains("open")) {
+                code.style.maxHeight = "0";
+                code.classList.remove("open");
+            } else {
+                code.style.maxHeight = code.scrollHeight + "px"; // подстраивается под контент
+                code.classList.add("open");
+            }
+        });
+    }
+});
+
+
+
