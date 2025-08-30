@@ -1,0 +1,20 @@
+{
+  "name": "alex/tasks",
+  "description": "This is simple tasks for php",
+  "type": "no",
+  "autoload": {
+    "psr-4": {
+      "Tasks\\": "src/",
+      "Classes\\": "src/classes"
+    },
+    "files": [
+      "src/helpers/helpers.php",
+      "public/templates/header.php",
+      "public/templates/footer.php"
+    ]
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "symfony/var-dumper": "^7.3"
+  }
+}
