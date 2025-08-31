@@ -23,11 +23,13 @@ pre {
     color: #fff;
     padding: 20px;
     border-radius: 12px;
-    max-width: 600px;
+    max-width: 100%;
     margin: 20px auto 50px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-size: 1.5rem;
     line-height: 1.2;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .question-template p {
