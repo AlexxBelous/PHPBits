@@ -5,8 +5,8 @@ function custom_dump($data)
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
-    exit;
 }
+
 
 // public/templates/header.php
 function render_header()
@@ -42,5 +42,5 @@ if (!function_exists('show_answer')) {
 
 // Автоматический вывод ответа в конце работы скрипта
 register_shutdown_function(function () {
-    show_answer('answer-0.phps');
+    show_answer('answer-1.phps');
 });
