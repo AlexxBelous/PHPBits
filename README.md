@@ -1,49 +1,100 @@
-# Documentation
-### Version 1.00
+# 📘 Documentation
+### Version 1.01
 - Базовая Docker-сборка: PHP-FPM, Nginx, MySQL, phpMyAdmin, Node.js
-----
-# Container
-| Command                               | Description                                                |
-|---------------------------------------|------------------------------------------------------------|
-| **Start Containers**                  | `docker compose up -d`                                     |
-| **Stop All Containers**               | `docker stop $(docker ps -q)`                              |
-| **Stop and Remove Containers**        | `docker compose down`                                      |
-| **Grant 777 Permissions**             | `sudo chmod -R 777 src/`                                   |
-| **Enter MySQL Container**             | `docker exec -it <container_name> bash`                    |
-| **Rebuild and Start Containers**      | `docker-compose up -d --build`                             |
-| **Remove Unused Resources**           | `docker system prune -a --volumes -f`                      |
-| **Stop and Clean Docker**             | `docker stop $(docker ps -aq) && docker system prune -af --volumes` |
-----
 
-# Команды для работы с фреймворком.
+---
 
-#### make question N=1 : создаются question-1.php, data_base-1.php, answer-1.phps;
-#### make class NAME=Test : создается класс в папке classes + создается комментарий в файле index.php
+# 🚀 PHP Questions Generator Project
 
-----
+Мини-фреймворк для автоматической генерации **вопросов**, **ответов**, **баз данных** и **классов**.  
+Все процессы автоматизированы с помощью `Makefile` и Docker-контейнеров.
+
+---
+
+## 📂 Структура проекта
+```
+php/
+│── src/
+│   ├── questions/   # вопросы (question-n.php)
+│   ├── answers/     # ответы (answer-n.phps)
+│   ├── database/    # базы (data_base-n.php)
+│   ├── classes/     # классы (Test.php и др.)
+│   └── helpers/     # вспомогательные функции
+│
+│── public/
+│   └── index.php    # главный файл
+│
+│── Makefile         # автоматизация
+│── docker-compose.yml # окружение
+```
+
+---
+
+## 🔹 Основные команды `make`
+
+### 1. Создать вопрос
+```bash
+
+make question N=15
+```
+Создаст:
+- `src/questions/question-15.php`
+- `src/answers/answer-15.phps`
+- `src/database/data_base-15.php`
+
+И обновит:
+- `src/helpers/helpers.php`
+- `public/index.php` (подключит последний вопрос и базу)
+
+---
+
+### 2. Создать класс
+```bash
+
+make class NAME=Test
+```
+Создаст:
+- `src/classes/Test.php`
+
+И обновит:
+- `public/index.php` (добавит комментарий `// класс Test готов к использованию!`)
+---
 
 
-#  Docker Command List
-
+## 🐳 Docker команды
 
 | Command                                           | Description                         |
 |---------------------------------------------------|-------------------------------------|
-| `sudo systemctl status docker`                    | Check the status of Docker          |
-| `sudo systemctl start docker`                     | Start Docker                        |
-| `sudo systemctl stop docker`                      | Stop Docker                         |
-| `sudo systemctl stop docker.socket`               | Stop the Docker socket              |
+| `docker compose up -d`                            | Запуск контейнеров                  |
+| `docker-compose up -d --build`                    | Пересобрать и запустить контейнеры  |
+| `docker compose down`                             | Остановить и удалить контейнеры     |
+| `docker stop $(docker ps -q)`                     | Остановить все контейнеры           |
+| `docker stop $(docker ps -aq) && docker system prune -af --volumes` | Полная очистка Docker               |
+| `docker system prune -a --volumes -f`             | Очистить неиспользуемые ресурсы     |
+| `docker exec -it <container_name> bash`           | Войти в контейнер                   |
 
+---
 
+## 🖥️ Docker service (Linux systemctl)
 
-# PhpStorm setup
-### allows searching for variables outside the current file
-| Step | Action                                                                                          |
-|------|-------------------------------------------------------------------------------------------------|
-| 1    | Go to File -> Settings (or PHPStorm -> Preferences on macOS).                                   |
-| 2    | In the settings menu, select Editor -> Inspections.                                             |
-| 3    | In the PHP section, find Undefined symbols and expand it.                                       |
-| 4    | Select Undefined variable.                                                                      |
-| 5    | Check the box Search for variables definition outside the current file.                         |
-| 6    | Click Apply, then OK to save the changes.                                                       |
+| Command                                | Description                          |
+|----------------------------------------|--------------------------------------|
+| `sudo systemctl status docker`         | Проверить статус Docker              |
+| `sudo systemctl start docker`          | Запустить Docker                     |
+| `sudo systemctl stop docker`           | Остановить Docker                    |
+| `sudo systemctl stop docker.socket`    | Остановить Docker socket             |
 
+---
 
+## 🔧 PhpStorm настройка
+
+Позволяет искать переменные вне текущего файла:
+
+1. File → Settings (или PHPStorm → Preferences на macOS).
+2. Editor → Inspections.
+3. В PHP-разделе найти **Undefined symbols**.
+4. Развернуть и выбрать **Undefined variable**.
+5. Включить опцию **Search for variables definition outside the current file**.
+6. Apply → OK.
+
+---
