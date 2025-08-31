@@ -42,5 +42,5 @@ if (!function_exists('show_answer')) {
 
 // Автоматический вывод ответа в конце работы скрипта
 register_shutdown_function(function () {
-    show_answer('answer-2.phps');
+    show_answer('answer-3.phps');
 });
