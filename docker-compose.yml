@@ -1,0 +1,66 @@
+services:
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - './:/var/www/html'
+      - '~/.gitconfig:/home/myuser/.gitconfig'
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - './:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+    restart: unless-stopped
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - './docker/volume/mysql:/var/lib/mysql'
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=root
+    restart: unless-stopped
+    depends_on:
+      - mysql
+
+
+  browsersync:
+    image: node:18
+    working_dir: /app
+    command: >
+      npx browser-sync start
+      --proxy "nginx:80"
+      --files "/var/www/html/**/*.php,/var/www/html/**/*.css,/var/www/html/**/*.js"
+      --no-open
+      --reload-delay 200
+      --reload-debounce 500
+      --host 0.0.0.0
+      --port 3000
+      --ui-port 3001
+    ports:
+      - "3000:3000" # сайт с автообновлением
+      - "3001:3001" # UI BrowserSync
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - nginx
